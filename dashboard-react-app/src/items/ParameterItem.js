@@ -100,16 +100,17 @@ class ParameterItemViewer extends CustomItemViewer {
         this.buttons.forEach(button => button.dispose());
     }
     renderContent(dxElement, changeExisting) {
-        this.element = (dxElement).jquery ? (dxElement).get(0): dxElement;
+        this._element = dxElement;
+        let element = (dxElement).jquery ? (dxElement).get(0): dxElement;
         if (!changeExisting) {
-            while (this.element.firstChild)
-                this.element.removeChild(this.element.firstChild);
+            while (element.firstChild)
+                element.removeChild(element.firstChild);
             this.buttons.forEach(button => button.dispose());
-            this.element.style.overflow = 'auto';
+            element.style.overflow = 'auto';
             
             this.gridContainer = document.createElement('div');
 
-            this.element.appendChild(this.gridContainer);
+            element.appendChild(this.gridContainer);
             this._generateParametersContent();
 
             this.buttonContainer = document.createElement('div');
@@ -118,7 +119,7 @@ class ParameterItemViewer extends CustomItemViewer {
             this.buttonContainer.style.width = buttonsStyle.width * 2 + buttonsStyle.marginRight * 2 + 'px';
             this.buttonContainer.style.cssFloat = 'right';
                 
-            this.element.appendChild(this.buttonContainer);
+            element.appendChild(this.buttonContainer);
 
             this.buttons.push(this._createButton(this.buttonContainer, "Reset", () => {
                 this.parametersContent.resetParameterValues();
@@ -198,7 +199,7 @@ class ParameterItemViewer extends CustomItemViewer {
         }
         this._setGridHeight();
         if(options.rerender)
-            this.renderContent(this.element, false);
+            this.renderContent(this._element, false);
     }
 }
 
