@@ -100,16 +100,16 @@ class ParameterItemViewer extends CustomItemViewer {
         this.buttons.forEach(button => button.dispose());
     }
     renderContent(dxElement, changeExisting) {
-        let element = (dxElement).jquery ? (dxElement).get(0): dxElement;
+        this.element = (dxElement).jquery ? (dxElement).get(0): dxElement;
         if (!changeExisting) {
-            while (element.firstChild)
-                element.removeChild(element.firstChild);
+            while (this.element.firstChild)
+                this.element.removeChild(this.element.firstChild);
             this.buttons.forEach(button => button.dispose());
-            element.style.overflow = 'auto';
+            this.element.style.overflow = 'auto';
             
             this.gridContainer = document.createElement('div');
 
-            element.appendChild(this.gridContainer);
+            this.element.appendChild(this.gridContainer);
             this._generateParametersContent();
 
             this.buttonContainer = document.createElement('div');
@@ -118,7 +118,7 @@ class ParameterItemViewer extends CustomItemViewer {
             this.buttonContainer.style.width = buttonsStyle.width * 2 + buttonsStyle.marginRight * 2 + 'px';
             this.buttonContainer.style.cssFloat = 'right';
                 
-            element.appendChild(this.buttonContainer);
+            this.element.appendChild(this.buttonContainer);
 
             this.buttons.push(this._createButton(this.buttonContainer, "Reset", () => {
                 this.parametersContent.resetParameterValues();
@@ -172,7 +172,7 @@ class ParameterItemViewer extends CustomItemViewer {
     }
     _subscribeProperties() {
         this.subscribe('showHeaders', (showHeaders) => { this._update({ showHeaders: showHeaders }); });
-        this.subscribe('showParameterName', (showParameterName) => { this._update({ showParameterName: showParameterName }); });
+        this.subscribe('showParameterName', (showParameterName) => { this._update({ showParameterName: showParameterName, rerender: true }); });
         this.subscribe('automaticUpdates', (automaticUpdates) => { this._update({ automaticUpdates: automaticUpdates }) });
     }
     _update(options) {
@@ -197,6 +197,8 @@ class ParameterItemViewer extends CustomItemViewer {
             }
         }
         this._setGridHeight();
+        if(options.rerender)
+            this.renderContent(this.element, false);
     }
 }
 
