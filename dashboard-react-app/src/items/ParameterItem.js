@@ -100,6 +100,7 @@ class ParameterItemViewer extends CustomItemViewer {
         this.buttons.forEach(button => button.dispose());
     }
     renderContent(dxElement, changeExisting) {
+        this._element = dxElement;
         let element = (dxElement).jquery ? (dxElement).get(0): dxElement;
         if (!changeExisting) {
             while (element.firstChild)
@@ -172,7 +173,7 @@ class ParameterItemViewer extends CustomItemViewer {
     }
     _subscribeProperties() {
         this.subscribe('showHeaders', (showHeaders) => { this._update({ showHeaders: showHeaders }); });
-        this.subscribe('showParameterName', (showParameterName) => { this._update({ showParameterName: showParameterName }); });
+        this.subscribe('showParameterName', (showParameterName) => { this._update({ showParameterName: showParameterName, rerender: true }); });
         this.subscribe('automaticUpdates', (automaticUpdates) => { this._update({ automaticUpdates: automaticUpdates }) });
     }
     _update(options) {
@@ -197,6 +198,8 @@ class ParameterItemViewer extends CustomItemViewer {
             }
         }
         this._setGridHeight();
+        if(options.rerender)
+            this.renderContent(this._element, false);
     }
 }
 
