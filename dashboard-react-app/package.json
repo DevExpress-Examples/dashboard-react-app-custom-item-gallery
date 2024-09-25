@@ -1,41 +1,37 @@
 {
   "name": "dashboard-react-app",
-  "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@devexpress/analytics-core": "22.2-stable",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "devexpress-dashboard": "22.2-stable",
-    "devexpress-dashboard-react": "22.2-stable",
-    "devextreme": "22.2-stable",
-    "devextreme-react": "22.2-stable",
-    "d3-funnel": "^2.1.1",
-    "d3": "^7.6.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1"
-  },
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "@devexpress/analytics-core": "24.2-stable",
+    "d3": "^7.6.1",
+    "d3-funnel": "^2.1.1",
+    "devexpress-dashboard": "24.2-stable",
+    "devexpress-dashboard-react": "24.2-stable",
+    "devextreme": "24.2-stable",
+    "devextreme-react": "24.2-stable",
+    "jquery-ui": "^1.14.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.0.1",
+    "vite": "^5.4.1"
   }
 }
