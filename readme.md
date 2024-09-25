@@ -12,7 +12,7 @@ The example contains the source code of the most requested custom items you can 
 
 This example uses a client-server architecture. The server (backend) project communicates with the client (frontend) application that includes all the necessary styles, scripts and HTML templates. Note that the script version on the client must match the version of libraries on the server.
 
-- The [asp-net-core-server](asp-net-core-server) folder contains the backend project built with ASP.NET Core 6.0.
+- The [asp-net-core-server](asp-net-core-server) folder contains the backend project built with .NET 8.0.
 - The [dashboard-react-app](dashboard-react-app) folder contains the client application built with React.
 
 ## Files to Review
@@ -25,7 +25,7 @@ This example uses a client-server architecture. The server (backend) project com
 * [GanttItem.js](dashboard-react-app/src/items/GanttItem.js)
 * [HierarchicalTreeViewItem.js](dashboard-react-app/src/items/HierarchicalTreeViewItem.js)
 * [FunnelD3Item.js](dashboard-react-app/src/items/FunnelD3Item.js)
-* [App.js](dashboard-react-app/src/App.js)
+* [App.tsx](dashboard-react-app/src/App.tsx)
 
 
 ## Quick Start
