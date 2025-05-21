@@ -58,7 +58,7 @@ const onlineMapMetadata = {
             dataField: 'Provider',
             template: FormItemTemplates.buttonGroup,
             editorOptions: {
-                items: [{ text: 'Google' }, { text: 'Bing' }]
+                items: [{ text: 'Azure' }, { text: 'Bing' }]
             },
         },{
             dataField: 'Type',
@@ -167,8 +167,8 @@ class OnlineMapItemViewer extends CustomItemViewer {
             // Use the template below to authenticate the application within the required map provider.
             //apiKey: { 
             //    bing: 'BINGAPIKEY',
-            //    google: 'GOOGLEAPIKEY'
-            //},             
+            //    azure: 'AZUREAPIKEY'
+            //},
             markers: markers,
             routes: routes.length > 0 ? [{
                 weight: 6,
