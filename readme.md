@@ -122,9 +122,11 @@ A custom **Online Map** item allows you to place callouts on Google or Bing maps
 
 ![online-map-item](images/online-map-item.png)
 
-- **Provider** - Specifies whether to show Google or Bing maps.
+- **Provider** - Specifies whether to show Azure or Bing maps.
 - **Type** - Specifies the map type. You can choose between `RoadMap`, `Satellite` or `Hybrid`.
 - **Display Mode** - Specifies whether to show markers or routes.
+
+To ensure maps render correctly, specify your Azure/Bing Maps credentials in the [OnlineMapItem.js](dashboard-react-app/src/items/OnlineMapItem.js#L) file.
 
 ### Web Page
 
