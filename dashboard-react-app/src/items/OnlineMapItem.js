@@ -40,7 +40,7 @@ const onlineMapMetadata = {
         ownerType: CustomItem,
         propertyName: 'Provider',
         valueType: 'string',
-        defaultValue: 'Bing',
+        defaultValue: 'Azure',
     },{
         ownerType: CustomItem,
         propertyName: 'Type',
