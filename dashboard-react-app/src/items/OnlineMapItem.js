@@ -2,6 +2,9 @@ import { CustomItemViewer } from 'devexpress-dashboard/common'
 import { CustomItem } from 'devexpress-dashboard/model'
 import { FormItemTemplates } from 'devexpress-dashboard/designer'
 import dxMap from 'devextreme/ui/map'
+// Registers the OpenLayers engine required by the OpenStreetMap (osm) provider.
+import 'devextreme/ui/map/openlayers'
+import 'ol/ol.css'
 
 const ONLINE_MAP_EXTENSION_NAME = 'OnlineMap';
 
@@ -11,6 +14,15 @@ const svgIcon = `<svg version="1.1" id="` + ONLINE_MAP_EXTENSION_NAME + `" xmlns
             c0-2.2,1.8-4,4-4s4,1.8,4,4C16,10.2,14.2,12,12,12z"/>
         <circle class="dx_red" cx="12" cy="8" r="2"/>
         </svg>`;
+
+const updateTypeVisibility = e => {
+    if (!e.component) return;
+    const formData = e.component.option('formData') || {};
+    // formData values are knockout observables
+    const value = typeof formData.Provider === 'function' ? formData.Provider() : formData.Provider;
+    const provider = (value ?? 'osm').toLowerCase();
+    e.component.itemOption('Type', 'visible', provider !== 'osm');
+};
 
 const onlineMapMetadata = {
     bindings:[{
@@ -40,7 +52,7 @@ const onlineMapMetadata = {
         ownerType: CustomItem,
         propertyName: 'Provider',
         valueType: 'string',
-        defaultValue: 'Azure',
+        defaultValue: 'osm',
     },{
         ownerType: CustomItem,
         propertyName: 'Type',
@@ -54,15 +66,19 @@ const onlineMapMetadata = {
     }],
     optionsPanelSections: [{
         title: 'Custom Options',
+        onInitialized: updateTypeVisibility,
+        onFieldDataChanged: updateTypeVisibility,
         items: [{
             dataField: 'Provider',
             template: FormItemTemplates.buttonGroup,
             editorOptions: {
-                items: [{ text: 'Azure' }, { text: 'Bing' }]
+                keyExpr: 'value',
+                items: [{ value: 'osm', text: 'OpenStreetMap' }, { value: 'azure', text: 'Azure' }]
             },
         },{
             dataField: 'Type',
             template: FormItemTemplates.buttonGroup,
+            visible: false,
             editorOptions: {
                 items: [{ text: 'RoadMap' }, { text: 'Satellite' }, { text: 'Hybrid' }]
             },
@@ -155,18 +171,17 @@ class OnlineMapItemViewer extends CustomItemViewer {
                 }
             });
         }
+        const provider = this.getPropertyValue('Provider').toLowerCase();
         let autoAdjust = markers.length > 0 || routes.length > 0,
         options = {
-            provider: this.getPropertyValue('Provider').toLowerCase(),
-            type: this.getPropertyValue('Type').toLowerCase(),
+            provider: provider,
             controls: true,
             zoom: autoAdjust ? 1000 : 1,
             autoAdjust: autoAdjust,
             width: this.contentWidth(),
             height: this.contentHeight(),
-            // Use the template below to authenticate the application within the required map provider.
-            //apiKey: { 
-            //    bing: 'BINGAPIKEY',
+            // Use the template below to authenticate the application within the Azure Maps provider.
+            //apiKey: {
             //    azure: 'AZUREAPIKEY'
             //},
             markers: markers,
@@ -178,6 +193,18 @@ class OnlineMapItemViewer extends CustomItemViewer {
                 locations: routes
             }] : []
         };
+        if (provider === 'osm') {
+            options.providerConfig = {
+                tileServer: {
+                    url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                },
+                calculateRoute: ({ locations }) => locations.map(({ lat, lng }) => [lat, lng])
+            };
+        } else {
+            options.type = this.getPropertyValue('Type').toLowerCase();
+        }
         if (changeExisting && this.mapViewer) {
             this.mapViewer.option(options);
         }

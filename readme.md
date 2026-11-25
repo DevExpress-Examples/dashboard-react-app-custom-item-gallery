@@ -116,15 +116,15 @@ This dashboard contains the following custom items:
 
 **View Script**: [OnlineMapItem.js](dashboard-react-app/src/items/OnlineMapItem.js)
 
-A custom **Online Map** item allows you to place callouts on Google or Bing maps using geographical coordinates. The [dxMap](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxMap/) is used as an underlying UI component. This custom item supports the following settings that you can configure in the Web Dashboard UI:
+A custom **Online Map** item allows you to place callouts on OpenStreetMap or Azure maps using geographical coordinates. The [dxMap](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxMap/) is used as an underlying UI component. This custom item supports the following settings that you can configure in the Web Dashboard UI:
 
 ![online-map-item](images/online-map-item.png)
 
-- **Provider** - Specifies whether to show Azure or Bing maps.
-- **Type** - Specifies the map type. You can choose between `RoadMap`, `Satellite` or `Hybrid`.
+- **Provider** - Specifies whether to show OpenStreetMap or Azure maps.
+- **Type** - Specifies the map type (Azure only). You can choose between `RoadMap`, `Satellite` or `Hybrid`.
 - **Display Mode** - Specifies whether to show markers or routes.
 
-To ensure maps render correctly, specify your Azure/Bing Maps credentials in the [OnlineMapItem.js](dashboard-react-app/src/items/OnlineMapItem.js#L167) file.
+The OpenStreetMap provider uses [OpenLayers](https://openlayers.org/) (the `ol` npm package) and does not require an API key. To use Azure Maps, specify your Azure Maps credentials in the [OnlineMapItem.js](dashboard-react-app/src/items/OnlineMapItem.js#L184) file.
 
 ### Web Page
 
